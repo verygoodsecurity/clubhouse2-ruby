@@ -41,7 +41,9 @@ jobs:
 
       - run: # Install Ruby dependencies
           name: Bundle Install
-          command: export BUNDLE_GEM__FURY__IO=$GEMFURY_DEPLOY_TOKEN && bundle install --path $BUNDLE_PATH
+          command: |
+            export BUNDLE_GEM__FURY__IO=$GEMFURY_DEPLOY_TOKEN
+            bundle install --path $BUNDLE_PATH
 
       # Store bundle cache for Ruby dependencies
       - save_cache:

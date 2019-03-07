@@ -28,5 +28,7 @@ Gem::Specification.new do |spec|
   spec.add_dependency 'pry', '~> 0.10.4'
   spec.requirements << 'A clubhouse account (https://clubhouse.io)'
 
-  spec.add_development_dependency "bundler", "~> 1.10"
+  spec.add_development_dependency "bundler", "~> 2.0"
+  spec.add_development_dependency "rake", "~> 12.3.0"
+  spec.add_development_dependency "rspec", "~> 3.8.0"
 end
