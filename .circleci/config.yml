@@ -64,7 +64,7 @@ jobs:
 
       - <<: *persist-workspace
 
-  build-gem-master:
+  build-gem-vgs:
     <<: *job-defaults
     docker:
     machine:
@@ -91,7 +91,7 @@ jobs:
             gem build clubhouse2.gemspec
       - <<: *persist-workspace
 
-  publish-gem-master:
+  publish-gem-vgs:
     <<: *job-defaults
     docker:
     machine:
@@ -129,7 +129,7 @@ workflows:
           filters:
             tags:
               only: /.*/
-      - build-gem-master:
+      - build-gem-vgs:
           context: private-rubygems
           requires:
             - build
@@ -137,17 +137,17 @@ workflows:
             tags:
               ignore: /.*/
             branches:
-              only: master
+              only: vgs
 
-      - publish-gem-master:
+      - publish-gem-vgs:
           context: private-rubygems
           requires:
-            - build-gem-master
+            - build-gem-vgs
           filters:
             tags:
               ignore: /.*/
             branches:
-              only: master
+              only: vgs
 
       - build-gem-tag:
           context: private-rubygems
