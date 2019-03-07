@@ -72,8 +72,8 @@ jobs:
       - run:
           name: Build a snapshot version
           command: |
-            export SLACKRB_VERSION=0.0.1-$(echo ${CIRCLE_SHA1} | cut -c1-8)
-            gem build slackrb.gemspec
+            export CH_RUBY_VERSION=0.0.1-$(echo ${CIRCLE_SHA1} | cut -c1-8)
+            gem build clubhouse2.gemspec
       - <<: *persist-workspace
   build-gem-tag:
     <<: *job-defaults
@@ -85,8 +85,8 @@ jobs:
       - run:
           name: Build a tagged version
           command: |
-            export SLACKRB_VERSION=$(echo $CIRCLE_TAG | cut -c2-30)
-            gem build slackrb.gemspec
+            export CH_RUBY_VERSION=$(echo $CIRCLE_TAG | cut -c2-30)
+            gem build clubhouse2.gemspec
       - <<: *persist-workspace
 
   publish-gem-master:
@@ -99,8 +99,8 @@ jobs:
       - run:
           name: Publish a snapshot version
           command: |
-            export SLACKRB_VERSION=0.0.1.pre.$(echo ${CIRCLE_SHA1} | cut -c1-8)
-            curl -F package=@slackrb-$SLACKRB_VERSION.gem https://$GEMFURY_PUSH_TOKEN@push.fury.io/osklyarenko/
+            export CH_RUBY_VERSION=0.0.1.pre.$(echo ${CIRCLE_SHA1} | cut -c1-8)
+            curl -F package=@clubhouse2-$CH_RUBY_VERSION.gem https://$GEMFURY_PUSH_TOKEN@push.fury.io/osklyarenko/
       - <<: *persist-workspace
 
 
@@ -114,8 +114,8 @@ jobs:
       - run:
           name: Publish a tagged version
           command: |
-            export SLACKRB_VERSION=$(echo $CIRCLE_TAG | cut -c2-30)
-            curl -F package=@slackrb-$SLACKRB_VERSION.gem https://$GEMFURY_PUSH_TOKEN@push.fury.io/osklyarenko/
+            export CH_RUBY_VERSION=$(echo $CIRCLE_TAG | cut -c2-30)
+            curl -F package=@clubhouse2-$CH_RUBY_VERSION.gem https://$GEMFURY_PUSH_TOKEN@push.fury.io/osklyarenko/
       - <<: *persist-workspace
 
 workflows:

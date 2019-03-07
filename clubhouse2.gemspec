@@ -4,7 +4,7 @@ $LOAD_PATH.unshift(lib) unless $LOAD_PATH.include?(lib)
 
 Gem::Specification.new do |spec|
   spec.name          = "clubhouse2"
-  spec.version       = File.read(File.expand_path(File.dirname(__FILE__)) + '/VERSION')
+  spec.version       = (ENV['CH_RUBY_VERSION'] or File.read(File.expand_path(File.dirname(__FILE__)) + '/VERSION'))
   spec.authors       = ["James Denness"]
   spec.email         = ["jd@masabi.com"]
 
