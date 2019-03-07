@@ -3,7 +3,7 @@ require 'uri'
 require 'json'
 
 module Clubhouse
-	class Client		
+	class Client
 		def initialize(api_key:, base_url: 'https://api.clubhouse.io/api/v2/')
 			@api_key = api_key
 			@base_url = base_url
@@ -52,7 +52,7 @@ module Clubhouse
 			new_params = args.compact.reject { |k, v| this_class.property_filter_create.include? k.to_sym }
 			response = api_request(:post, url(this_class.api_url), :json => new_params)
 			JSON.parse(response.to_s)
-		end		
+		end
 
 		def get_objects(resource_class, args = {})
 			this_class = Clubhouse::ClubhouseResource.subclass(resource_class)
@@ -87,6 +87,28 @@ module Clubhouse
 
 		def story(**args); stories(**args).first; end
 
+		def stories_search(page_size = 25, next_page_id = nil, **args)
+			search_parts = []
+			args.each_pair do |k, v|
+				term = URI.encode(k.to_s)
+				v.each do |value|
+					search_parts << "#{term}:\"#{value}\""
+				end
+			end
+
+			search_string = search_parts.join(' ')
+
+			uri_string = url(SearchStoriesPage.api_url).to_s
+			uri_string += "&query=#{URI.encode(search_string)}"
+			uri_string += "&page_size=#{page_size}"
+			uri_string += "&next=#{URI.encode(next_page_id)}" unless next_page_id.nil?
+
+			updated_uri = URI(uri_string)
+			response = api_request(:get, updated_uri)
+
+			SearchStoriesPage.new(client: self, json_object: JSON.parse(response.to_s))
+		end
+
 		def create_story_link(**args); create_object(:storylink, args); end
 		def story_links(**args)
 			filter(stories.collect(&:story_links).flatten, args)
@@ -97,7 +119,7 @@ module Clubhouse
 		def create_member(**args); create_object(:member, args); end
 		def members(**args); get_objects(:member, args); end
 		def member(**args); get_object(:member, args); end
-		
+
 		def create_team(**args); create_object(:team, args); end
 		def teams(**args); get_objects(:team, args); end
 		def team(**args); get_object(:team, args); end
