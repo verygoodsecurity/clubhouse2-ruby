@@ -3,7 +3,7 @@ module Clubhouse
 		def self.properties
 			[
 				:archived, :comments, :completed, :completed_at, :completed_at_override, :created_at, :deadline, :description,
-				:entity_type, :external_id, :follower_ids, :id, :labels, :milestone_id, :name, :owner_ids, :position, :project_ids,
+				:entity_type, :external_id, :requested_by, :follower_ids, :id, :labels, :milestone_id, :name, :owner_ids, :position, :project_ids,
 				:started, :started_at, :started_at_override, :state, :stats, :updated_at
 			]
 		end
