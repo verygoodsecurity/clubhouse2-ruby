@@ -2,3 +2,4 @@
 bin/
 .idea/
 secrets*.txt
+VERSION
