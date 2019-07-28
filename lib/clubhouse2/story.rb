@@ -38,9 +38,6 @@ module Clubhouse
 				raise NoSuchLinkedStory.new(this_linked_story) unless @client.story(id: this_linked_story['subject_id'])
 			end
 
-			# (args[:labels] || []).collect! do |this_label|
-			# 	this_label.is_a?(Label) ? this_label : @client.label(id: this_label['name'])
-			# end
 		end
 
 		def update(**args)
